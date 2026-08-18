@@ -12,7 +12,7 @@ if ('scrollRestoration' in window.history) {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/FreshNewsV2">
       <AuthProvider>
         <App />
       </AuthProvider>
