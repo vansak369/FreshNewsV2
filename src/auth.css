@@ -1,0 +1,115 @@
+
+.auth-page{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #F4F5F7;
+  padding: 48px 20px;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.auth-card{
+  width: 100%;
+  max-width: 420px;
+  background: #FFFFFF;
+  border: 1px solid #E7E8EC;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(20,20,30,0.06);
+  padding: 40px 36px 32px;
+}
+
+.auth-card h2{
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  text-transform: none;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #14151A;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: normal;
+}
+
+.auth-subtitle{
+  text-align: center;
+  color: #6B7280;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+
+.auth-field{ margin-bottom: 18px; }
+
+.auth-field label{
+  display: block;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #22242B;
+  margin-bottom: 6px;
+}
+
+.auth-field input{
+  width: 100%;
+  border: 1px solid #D9DBE1;
+  border-radius: 8px;
+  background: #FFFFFF;
+  padding: 11px 14px;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #14151A;
+}
+.auth-field input::placeholder{ color: #A2A5AE; }
+.auth-field input:focus-visible{
+  outline: 2px solid #2F5AF0;
+  outline-offset: 1px;
+  border-color: #2F5AF0;
+}
+
+.auth-error{
+  background: #FDECEC;
+  color: #C4302B;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.87rem;
+  margin-bottom: 18px;
+}
+
+.auth-btn{
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: #2F5AF0;
+  color: #FFFFFF;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 13px 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.auth-btn:hover{ background: #2447C7; }
+
+.auth-switch{
+  text-align: center;
+  margin-top: 22px;
+  font-size: 0.9rem;
+  color: #6B7280;
+}
+.auth-switch a{
+  color: #2F5AF0;
+  font-weight: 600;
+}
+.auth-switch a:hover{ text-decoration: underline; }
+
+.auth-brand{
+  display: block;
+  text-align: center;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  color: #14151A;
+  margin-bottom: 28px;
+}
+.auth-brand-dot{ color: #2F5AF0; margin: 0 2px; }
