@@ -23,7 +23,7 @@ export default function Dashboard() {
   }, [user]);
 
   async function handleDelete(id) {
-    if (!window.confirm('Delete this story? This cannot be undone.')) return;
+    if (!window.confirm('Are you sure you want to delete this story?')) return;
     setDeletingId(id);
     try {
       await deleteArticle(id);
