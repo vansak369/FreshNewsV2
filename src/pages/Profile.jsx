@@ -7,11 +7,7 @@ import {
 } from 'firebase/auth';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useScrollMemory } from '../hooks/useScrollMemory.js';
-import {
-  deleteProfileImageByUrl,
-  uploadProfileImage,
-  validateImageFile,
-} from '../services/storageService.js';
+import { uploadProfileImage, validateImageFile } from '../services/storageService.js';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -24,7 +20,6 @@ export default function Profile() {
   const [savingStage, setSavingStage] = useState(''); 
 
   const fileInputRef = useRef(null);
-  const originalPhotoUrl = useRef(user?.photoURL || '');
   const [imageFile, setImageFile] = useState(null); 
   const [imageRemoved, setImageRemoved] = useState(false); 
   const [imageError, setImageError] = useState('');
@@ -81,36 +76,23 @@ export default function Profile() {
 
     setSavingProfile(true);
     setProfileStatus('');
-    let uploadedUrl = null;
 
     try {
       let nextPhotoUrl = imageRemoved ? '' : photoUrl;
 
       if (imageFile) {
         setSavingStage('uploading');
-        uploadedUrl = await uploadProfileImage(imageFile, user?.uid);
-        nextPhotoUrl = uploadedUrl;
+        nextPhotoUrl = await uploadProfileImage(imageFile);
       }
 
       setSavingStage('saving');
       await updateProfile(user, { displayName: name, photoURL: nextPhotoUrl });
 
-     
-      const oldUrl = originalPhotoUrl.current;
-      if (oldUrl && oldUrl !== nextPhotoUrl) {
-        deleteProfileImageByUrl(oldUrl);
-      }
-
       setPhotoUrl(nextPhotoUrl);
-      originalPhotoUrl.current = nextPhotoUrl;
       setImageFile(null);
       setImageRemoved(false);
       setProfileStatus('saved');
     } catch (err) {
-      
-      if (uploadedUrl) {
-        deleteProfileImageByUrl(uploadedUrl);
-      }
       setProfileStatus('error');
     } finally {
       setSavingProfile(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createArticle, getArticle, updateArticle } from '../services/articlesService.js';
-import { deleteArticleImageByUrl, uploadArticleImage, validateImageFile } from '../services/storageService.js';
+import { uploadArticleImage, validateImageFile } from '../services/storageService.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const EMPTY = { title: '', excerpt: '', category: 'Technology', readTime: '4 min', imageUrl: '', byline: '' };
@@ -20,7 +20,6 @@ export default function ArticleForm() {
 
   // Image upload state
   const fileInputRef = useRef(null);
-  const originalImageUrl = useRef(''); 
   const [imageFile, setImageFile] = useState(null); 
   const [imageRemoved, setImageRemoved] = useState(false); 
   const [imageError, setImageError] = useState('');
@@ -39,7 +38,6 @@ export default function ArticleForm() {
         return;
       }
       setForm(data);
-      originalImageUrl.current = data.imageUrl || '';
       setLoading(false);
     });
   }, [id, isEdit, user, navigate]);
@@ -92,15 +90,13 @@ export default function ArticleForm() {
     }
 
     setSaving(true);
-    let uploadedUrl = null;
 
     try {
       let nextImageUrl = imageRemoved ? '' : form.imageUrl;
 
       if (imageFile) {
         setSavingStage('uploading');
-        uploadedUrl = await uploadArticleImage(imageFile, user?.uid);
-        nextImageUrl = uploadedUrl;
+        nextImageUrl = await uploadArticleImage(imageFile);
       }
 
       setSavingStage('saving');
@@ -112,18 +108,8 @@ export default function ArticleForm() {
         await createArticle(payload, user?.uid);
       }
 
-      
-      const oldUrl = originalImageUrl.current;
-      if (oldUrl && oldUrl !== nextImageUrl) {
-        deleteArticleImageByUrl(oldUrl);
-      }
-
       navigate('/dashboard');
     } catch (err) {
-      
-      if (uploadedUrl) {
-        deleteArticleImageByUrl(uploadedUrl);
-      }
       setError('Could not save the story. Please try again.');
     } finally {
       setSaving(false);
